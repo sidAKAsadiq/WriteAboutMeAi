@@ -1,24 +1,9 @@
-class api_error extends Error{
-    constructor(
-        status_code,
-        message = "Something went wrong",
-        errors = [],
-        stack = "",
-    ){
-        super(message)
+class api_error{
+    constructor(status_code , data , message = "Success"){
         this.statusCode = status_code
-        this.data = null
+        this.data = data
         this.message = message
-        this.success = false
-        this.errors = errors
-
-        if (stack){
-            this.stack = stack
-        }
-        else{
-            Error.captureStackTrace(this,this.constructor)
-        }
-
+        this.success = status_code < 400
     }
 }
 
