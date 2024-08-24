@@ -5,6 +5,10 @@ import { useNavigate } from 'react-router-dom'
 function Protected({children , authentication = true}) {
     const dispatch = useDispatch()
     const is_authenticated = useSelector(state => state.auth.is_authenticated)
+    
+    console.log("in pro is auth", is_authenticated);
+    console.log("in pro authentication", authentication);
+    
     const [loader , set_loader] = useState("true")
     const navigate = useNavigate()
 
@@ -14,15 +18,15 @@ function Protected({children , authentication = true}) {
 
 
     useEffect(() => {
-        //Woh jaga jahan bagair login kiye nahi ja sakty -  authentication = true
-        if(authentication && is_authenticated !== authentication){
-            navigate('/login')
+
+         if (is_authenticated !== null) {
+            if (authentication && !is_authenticated) {
+                navigate('/login');
+            } else if (!authentication && is_authenticated) {
+                navigate('/');
+            }
+            set_loader(false);
         }
-        //woh jaga jahan sirf tab ja sakty hain jab authenticated na hon, else nahi - authenctication = false
-        else if(!authentication && is_authenticated !== authentication){
-            navigate('/')
-        }
-        set_loader(false)
 
     }, [is_authenticated , navigate , authentication])
 

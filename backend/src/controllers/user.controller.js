@@ -2,6 +2,9 @@ import { User } from '../models/user.models.js'
 import { api_error } from '../utils/api_error.js'
 import { api_response } from '../utils/api_response.js'
 import { async_handler } from '../utils/async_handler.js'
+import { generate_about_section_ai } from '../utils/geminiAi.js'
+import {spawn} from 'child_process'
+
 
 const generate_access_and_refresh_tokens = async function(user_obj) {
     const access_token = user_obj.generate_access_token()
@@ -129,9 +132,92 @@ const get_current_user = async_handler(async(req,res) => {
 })
 
 
+
+const generate_about_section = async_handler(async(req,res) => {
+    console.log("In generate about section");
+    
+    
+    const {LinkedIn_url ,writing_style , keywords_include , keywords_exclude} = req.body
+
+    console.log("LURL" , LinkedIn_url);
+    console.log("WS" , writing_style);
+    console.log("ki" , keywords_include); 
+    console.log("ke" , keywords_exclude);
+    
+    
+    const execute_python = async (script , args) => {
+        console.log("in exec python!");
+        const argumentss = args.map(arg => arg.toString())
+        
+        const py = spawn("python", [script , ...argumentss]);
+        
+        const result = await new Promise((resolve, reject) => {
+            let output = '';
+            
+            py.stdout.on('data', (data) => {
+                
+                output += data.toString();  // Accumulate the data
+            });
+
+            py.stderr.on('data', (data) => {
+                console.error(`Error: ${data}`);
+                reject(`Error in ${script}`);
+            });
+
+            py.on("exit", (code) => {
+                console.log(`child process exited successfully! ${code}`);
+                try {
+                    const jsonOutput = JSON.parse(output);  // Parse the accumulated data as JSON
+                    resolve(jsonOutput);
+                } catch (err) {
+                    reject(`Failed to parse JSON: ${err.message}`);
+                }
+            });
+        });
+        console.log("At end");
+        console.log("Result : " , result);
+        
+        return result;
+    }
+    
+    try {
+        const result = await execute_python('D:\\WriteAboutMeAi\\backend\\src\\python\\script.py' , [LinkedIn_url]);
+        //res.json({ result: result });
+        const results = {...result , writing_style : writing_style , keywords_include : keywords_include  , keywords_exclude : keywords_exclude }
+        console.log(results)
+        const about_sec = await generate_about_section_ai(results)
+        const fin_about_sec =about_sec 
+        //.split("\n") // Split the string into lines
+        //.filter(line => line.trim() !== "") // Remove empty lines
+        //res.json({ result: fin_about_sec });
+        const current_user = await User.findById(req.user._id)
+        current_user.about_me_history.push(fin_about_sec)
+        current_user.save({validateBeforeSave : false})
+        
+        return res.status(200).json(new api_response(200 , fin_about_sec , "About section generated!"))
+    } catch (error) {
+        //res.status(500).json({ error: error });
+        return res.status(200).json(new api_response(200 , error , "Error while generating !"))
+    }
+
+
+
+
+})
+
+const user_history = async_handler(async(req,res) => {
+    
+})
+
+
+
 export {
     register_user,
     login_user,
     logout_user,
     get_current_user,
+    generate_about_section,
+    user_history,
+    
+    
 }

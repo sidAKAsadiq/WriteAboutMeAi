@@ -8,7 +8,8 @@ function Logout() {
     const [res, set_res] = useState(null)
 
     const navigate = useNavigate()
-
+    console.log("In logout!");
+    
     const dispatch = useDispatch()
 
     axios.get('/api/v1/users/logout')

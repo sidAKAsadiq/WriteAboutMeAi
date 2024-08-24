@@ -10,6 +10,8 @@ import Logout from './components/Logout.jsx'
 import { Provider } from 'react-redux'
 import store from './store/store.js'
 import Protected from './components/Protected.jsx'
+import Generate_about_me_page from './pages/Generate_about_me_page.jsx'
+import History_page from './pages/History_page.jsx'
 
 const router = createBrowserRouter([
   {
@@ -23,27 +25,43 @@ const router = createBrowserRouter([
       {
         path : '/register',
         element : (
-          <Protected authentication = {false}>
+         // <Protected authentication = {false} >
             <Register_page />
-          </Protected>
+          //</Protected>
         ),
       },
       {
         path : '/login',
         element : (
-          <Protected authentication = {false}>
+         // <Protected authentication = {false}>
             <Login_page />
-          </Protected>
+          //</Protected>
         ),
       },
       {
         path : '/logout',
         element : (
-          <Protected authentication = {false}>
+         // <Protected authentication = {false}>
             <Logout />
-          </Protected>
+          //</Protected>
         ),
       },
+      {
+        path : '/generate_about_me',
+        element : (
+         // <Protected authentication = {true}> 
+            <Generate_about_me_page />
+          //</Protected>
+        )
+      },
+      {
+        path : '/history',
+        element : (
+         // <Protected authentication = {true}> 
+            <History_page />
+          //</Protected>
+        )
+      },      
     ]
   }
 ])
