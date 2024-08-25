@@ -24,7 +24,7 @@ function Login() {
         },        {
           headers: {
             "Content-Type": "application/json",
-          },)
+          }},)
         .then((response) => {
             console.log("Login response: ", response.data.data);
             dispatch(login(response.data.data))
