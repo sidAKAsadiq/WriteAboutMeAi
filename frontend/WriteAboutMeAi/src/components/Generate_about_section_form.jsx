@@ -27,7 +27,7 @@ function Generate_about_section_form() {
 
     const submit = async (data) => {
         set_loader(true)
-        axios.post('/api/v1/users/generate_about_section', {
+        axios.post('https://write-about-me-ai.vercel.app/api/v1/users/generate_about_section', {
             LinkedIn_url: data.LinkedIn_url,
             writing_style: data.writing_style,
             keywords_include: data.keywords_include,
