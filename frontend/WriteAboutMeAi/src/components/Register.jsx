@@ -21,7 +21,7 @@ function Register() {
 
   const submit = async (data) => {
     axios
-      .post("/api/v1/users/register", {
+      .post("https://write-about-me-ai.vercel.app/api/v1/users/register", {
         username: data.username,
         email: data.email,
         password: data.password,
