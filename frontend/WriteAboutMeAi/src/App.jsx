@@ -16,7 +16,7 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    axios.get('/api/v1/users/get_current_user')
+    axios.get('https://write-about-me-ai.vercel.app/api/v1/users/get_current_user')
     .then((response) => {
       console.log("Current user found!" , response);
       dispatch(login(response.data.data))
