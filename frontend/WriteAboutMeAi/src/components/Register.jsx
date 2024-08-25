@@ -30,8 +30,7 @@ function Register() {
           headers: {
             "Content-Type": "application/json",
           },
-      }
-    )
+      })
       .then((response) => {
         console.log("Response: ", response);
         set_res(response.data);
