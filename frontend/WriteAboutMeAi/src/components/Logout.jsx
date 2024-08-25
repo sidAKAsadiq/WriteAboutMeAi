@@ -12,7 +12,7 @@ function Logout() {
     
     const dispatch = useDispatch()
 
-    axios.get('/api/v1/users/logout')
+    axios.get('https://write-about-me-ai.vercel.app/api/v1/users/logout')
     .then((response) => {
         dispatch(logout())
         console.log(response);
