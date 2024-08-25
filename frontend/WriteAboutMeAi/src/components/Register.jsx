@@ -25,7 +25,7 @@ function Register() {
         username: data.username,
         email: data.email,
         password: data.password,
-      }
+      },
        {
           headers: {
             "Content-Type": "application/json",
