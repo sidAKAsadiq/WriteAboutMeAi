@@ -1,5 +1,5 @@
 import React from 'react';
-import logo_image from '../assets/AboutMe.Ai.png'
+import logo_image from '../assets/AboutMe.ai.png'
 import { Link } from 'react-router-dom';
 
 function Logo({
