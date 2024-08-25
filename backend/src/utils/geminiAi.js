@@ -19,7 +19,7 @@ const generate_about_section_ai = async(result) => {
      * Education: ${result.education.map(edu => `- **${edu.degree}** in **${edu.field_of_study}** from **${edu.school}**`).join('\n')}
      * [Any additional details relevant to the user's career goals, like volunteer experience, projects, etc.]
  
-     **Keywords to Include:** ${result.keywords_include}
+     **Keywords to Include:** ${result.keywords_include + "Heading of About me" + "At last line write that this has been generated using WriteAboutMe.Ai"  + "Exclude use of any special symbols such as '*' or '#'"}
      **Keywords to Exclude:** ${result.keywords_exclude}
  
      **Ensure the "About Me" section is:**
@@ -27,7 +27,8 @@ const generate_about_section_ai = async(result) => {
      - Highlights ${result.name}'s key skills and accomplishments.
      - Demonstrates ${result.name}'s value proposition to potential employers.
      - Concludes with a call to action (e.g., connect, message, learn more). 
-     - Do not expect anything from the user to enter on their own.
+     - Do NOT expect anything from the user to add on their own.
+     - Do NOT use '*' or '#' for headings or sub headings, instead use spacing technique or simple '-'
  `;
  
  // Then, use the prompt with your generative AI model
