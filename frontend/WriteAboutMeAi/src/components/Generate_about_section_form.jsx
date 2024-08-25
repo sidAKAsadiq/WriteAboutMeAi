@@ -32,7 +32,13 @@ function Generate_about_section_form() {
             writing_style: data.writing_style,
             keywords_include: data.keywords_include,
             keywords_exclude: data.keywords_exclude,
-        })
+        },       
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+                  )
             .then((response) => {
                 console.log("About me : ", response);
                 set_loader(false)
