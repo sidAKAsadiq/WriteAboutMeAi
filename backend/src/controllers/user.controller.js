@@ -93,7 +93,7 @@ const login_user = async_handler(async(req , res) => {
         sameSite : 'none'
     }  
 
-    return res.status(200).cookie('access_token' , access_token ).cookie("refresh_token" , refresh_token).json(new api_response(200 , does_user_exist , "User logged in successfully"))
+    return res.status(200).cookie('access_token' , access_token, options ).cookie("refresh_token" , refresh_token, options).json(new api_response(200 , does_user_exist , "User logged in successfully"))
 
 
 })
@@ -120,7 +120,7 @@ const logout_user = async_handler(async(req,res) => {
         sameSite : 'none'
     }  
 
-return res.status(200).clearCookie("access_token").clearCookie("refresh_token").json(new api_response(200 , logged_out_user , "Logout successfull!"))
+return res.status(200).clearCookie("access_token",options).clearCookie("refresh_token",options).json(new api_response(200 , logged_out_user , "Logout successfull!"))
 })
 
 
