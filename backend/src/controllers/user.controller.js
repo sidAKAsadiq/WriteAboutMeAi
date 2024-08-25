@@ -88,9 +88,10 @@ const login_user = async_handler(async(req , res) => {
 
     //cookie settings
     const options = {
-        httpOnly : true,
+        httpOnly : false,
         secure : true,
-    }    
+        sameSite : 'none'
+    }  
 
     return res.status(200).cookie('access_token' , access_token ).cookie("refresh_token" , refresh_token).json(new api_response(200 , does_user_exist , "User logged in successfully"))
 
@@ -113,10 +114,11 @@ const logout_user = async_handler(async(req,res) => {
 )
 
 
-const options = {
-    httpOnly : true,
-    secure : true,
-}
+    const options = {
+        httpOnly : false,
+        secure : true,
+        sameSite : 'none'
+    }  
 
 return res.status(200).clearCookie("access_token").clearCookie("refresh_token").json(new api_response(200 , logged_out_user , "Logout successfull!"))
 })
