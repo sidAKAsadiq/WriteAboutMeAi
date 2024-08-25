@@ -18,7 +18,7 @@ function Login() {
     const dispatch = useDispatch()
 
     const submit = async (data) => {
-        axios.post('/api/v1/users/login', {
+        axios.post('https://write-about-me-ai.vercel.app/api/v1/users/login', {
             username_or_email: data.username_or_email,
             password: data.password
         })
