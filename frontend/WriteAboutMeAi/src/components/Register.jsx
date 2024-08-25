@@ -20,18 +20,18 @@ function Register() {
   const navigate = useNavigate()
 
   const submit = async (data) => {
-    axios
-      .post("https://write-about-me-ai.vercel.app/api/v1/users/register", {
+    axios.post("https://write-about-me-ai.vercel.app/api/v1/users/register",
+      {
         username: data.username,
         email: data.email,
         password: data.password,
       },
-       {
+      {
           headers: {
             "Content-Type": "application/json",
           },
-        }     
-           )
+      }
+    )
       .then((response) => {
         console.log("Response: ", response);
         set_res(response.data);
