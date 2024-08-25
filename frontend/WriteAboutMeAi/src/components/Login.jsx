@@ -21,7 +21,10 @@ function Login() {
         axios.post('https://write-about-me-ai.vercel.app/api/v1/users/login', {
             username_or_email: data.username_or_email,
             password: data.password
-        })
+        },        {
+          headers: {
+            "Content-Type": "application/json",
+          },)
         .then((response) => {
             console.log("Login response: ", response.data.data);
             dispatch(login(response.data.data))
