@@ -40,6 +40,7 @@ function Login() {
         <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-black to-purple-700">
             <h1 className="text-4xl font-extrabold text-white mb-8">WriteAboutMe.Ai</h1>
             <form
+                method='post'
                 onSubmit={handleSubmit(submit)}
                 className="flex flex-col bg-white p-8 rounded-lg shadow-lg w-96"
                 style={{ animation: "fadeIn 1s ease-in-out" }}
