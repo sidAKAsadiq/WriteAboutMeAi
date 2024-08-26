@@ -17,6 +17,7 @@ function History_about_me() {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
+  const id = useId()
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-800 to-purple-400 text-white p-8">
       <h1 className="text-3xl font-bold mb-6">History</h1>
@@ -31,7 +32,7 @@ function History_about_me() {
               key={index} 
               className="bg-white bg-opacity-10 p-6 rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105"
             >
-              <p className="mb-4 leading-relaxed" id={useId}>{displayText}</p>
+              <p className="mb-4 leading-relaxed" id={id}>{displayText}</p>
               {shouldTruncate && (
                 <button
                   onClick={() => toggleReadMore(index)}
