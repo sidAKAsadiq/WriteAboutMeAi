@@ -192,10 +192,10 @@ const generate_about_section = async_handler(async(req,res) => {
         //.split("\n") // Split the string into lines
         //.filter(line => line.trim() !== "") // Remove empty lines
         //res.json({ result: fin_about_sec });
-        const current_user = await User.findById(req.user._id)
+        //const current_user = await User.findById(req.user._id)
         //current_user.about_me_history.push(fin_about_sec)
-        current_user.about_me_history = [fin_about_sec, ...current_user.about_me_history]
-        current_user.save({validateBeforeSave : false})
+        //current_user.about_me_history = [fin_about_sec, ...current_user.about_me_history]
+        //current_user.save({validateBeforeSave : false})
         
         return res.status(200).json(new api_response(200 , fin_about_sec , "About section generated!"))
     } catch (error) {
