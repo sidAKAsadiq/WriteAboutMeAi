@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useState, useEffect, useRef , useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import Loader from './Loader'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 function Generate_about_section_form() {
@@ -20,6 +20,8 @@ function Generate_about_section_form() {
     
     const status = useSelector(state => state.auth.is_authenticated);
     console.log("s" , status);
+    const dispatch = useDispatch()
+    const user_data = useSelector(state => state.auth.user_data);    
     
     useEffect(() => {
         if (!status && status!==null) navigate('/login');
@@ -43,6 +45,11 @@ function Generate_about_section_form() {
                 console.log("About me : ", response);
                 set_loader(false)
                 set_res(response.data.data)
+                const updated_user_data = {
+                  ...user_data,
+                  about_me_history: [...(user_data.about_me_history || []), response.data.data]
+              };
+              dispatch(login(updated_user_data));                
             })
             .catch((error) => {
                 console.log("error in about me frontend : ", error);
